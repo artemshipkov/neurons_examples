@@ -1,19 +1,22 @@
+<?php
 /* original code in Python here: http://www.michurin.net/computer-science/artificial-intelligence/task-for-one-neuron.html */
 /* оригинальный код на Python'е здесь: http://www.michurin.net/computer-science/artificial-intelligence/task-for-one-neuron.html */
 
 
 /* the problem for which we find a solution based on the selected coefficients for the general equation of the line */
 /* проблема, для которой находим решение на основе подобранных коэффициентов для общего уравнения прямой */
-var problem = [
-	'...?.....?............#',
-	'......?.......?....####',
-	'.?........?.....#####?#',
-	'.......?.....#####?####',
-	'..?..?....#############',
-	'.......######?######?##',
-	'....#####?#######?#####',
-	'.###################?##'
-];
+$problem[] = "...?.....?............#";
+$problem[] = "......?.......?....####";
+$problem[] = ".?........?.....#####?#";
+$problem[] = ".......?.....#####?####";
+$problem[] = "..?..?....#############";
+$problem[] = ".......######?######?##";
+$problem[] = "....#####?#######?#####";
+$problem[] = ".###################?##";
+
+$height = 8;
+$width = 23;
+
 
 /* coefficients of the general form of linear equation (Cartesian coordinates) */
 /* in original code in Python here an error, cause sum of x * wx + y * wy must be the same at the border line (or on a line parallel to it), so x need have less multiplier than y have */
@@ -21,40 +24,31 @@ var problem = [
 /* коэффициенты для общего уравнения прямой (прямоугольная система координат) */
 /* в оригинальном коде на Python'е здесь ошибка, потому что сумма x * wx + y * wy должна быть одинаковой на границе (или линии, параллельной ей), поэтому "x" нужен меньший множитель, чем у "y" */
 /* или, иными словами, т.к. "картинка" широкая, то при движении по оси "x" рост значения не должен быть быстрее, чем по "y", иначе крайняя точка по "x" (справа сверху) будет весить больше, чем крайняя точка по "y" */
-var wx = 8;
-var wy = 24;
+$wx = 8;
+$wy = 24;
 /* variable, that need to be equal to the sum of multiplications of coords point from border line to their weights (wx * x + wy * y), but with opposite sign */
 /* переменная, что должна быть равна сумме перемножений координат точки с разграничивающей прямой на их веса (wx * x + wy * y), но с противоположным знаком */
-var wb = -171;
-
-function neuron(x, y, bias=1) {
-    let f = wx * x + wy * y + wb * bias;  // general form of linear equation  // общее уравнение прямой
-    if (f < 0) {
-        return -1;
-	}
-    return 1;
-}
+$wb = -171;
 
 
-var y = 0;
-for (let line of problem) {
-    let x = 0;
-    let new_line = '';
-    for (let char_ of line) {
-        if (char_ == '?') {
-            /* ask neuron, what do it "think" about that point */
+$bias = 1;  // «опорный сигнал»
+for ($y = 0; $y < $height; ++$y) {
+	$new_line = "";
+	for ($x = 0; $x < $width; ++$x) {
+		$ch = $problem[$y][$x];
+		if ($ch === '?') {
+			/* ask neuron, what do it "think" about that point */
             /* спрашиваем у нейрона, что он думает про эту точку */
-            let r = neuron(x, y);
-            if (r < 0) {
-                char_ = '!';
-			}
-            else {
-                char_ = '%';
-			}
+			$f = $wx * $x + $wy * $y + $wb * $bias;  // general form of linear equation  // общее уравнение прямой
+			if ($f < 0)
+				$ch = '!';
+			else
+				$ch = '%';
 		}
-        new_line += char_;
-        x += 1;
+		// $new_line[] = $ch;
+		$new_line[$x] = $ch;
 	}
-    console.log(new_line);
-    y += 1;
+	print_r($new_line . '\n');
 }
+
+?>

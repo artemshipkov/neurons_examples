@@ -32,7 +32,7 @@ inline void learn(int x, int y, int desired) {
     wb += error * 1 * learning_constant;  // bias = 1
 }
 
-inline  void one_step_of_learning() {
+inline void one_step_of_learning() {
 	for (int y = 0; y < height; ++y)
         for (int x = 0; x < width; ++x) {
 			char ch = problem[y][x];
@@ -43,7 +43,7 @@ inline  void one_step_of_learning() {
 		}
 }
 
-inline  void print_solution() {
+inline void print_solution() {
     for (int y = 0; y < height; ++y) {
         char * new_line = new char[width]; new_line[width-1]=0;
         for (int x = 0; x < width; ++x) {

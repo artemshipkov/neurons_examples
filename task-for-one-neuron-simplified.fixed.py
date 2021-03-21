@@ -28,27 +28,21 @@ wy = 24
 wb = -171
 
 
-def neuron(x, y, bias=1):
-    f = wx * x + wy * y + wb * bias  # general form of linear equation  # общее уравнение прямой
-    if f < 0:
-        return -1
-    return 1
-
-
+bias = 1  # «опорный сигнал»
 y = 0
 for line in problem:
     x = 0
-    new_line = ''
+    new_line = ""
     for char in line:
         if char == '?':
             # ask neuron, what do it "think" about that point
             # спрашиваем у нейрона, что он думает про эту точку
-            r = neuron(x, y)
-            if r < 0:
+            f = wx * x + wy * y + wb * bias  # general form of linear equation  # общее уравнение прямой
+            if f < 0:
                 char = '!'
             else:
                 char = '%'
         new_line += char
         x += 1
-    print new_line
+    print(new_line)
     y += 1

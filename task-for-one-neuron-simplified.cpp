@@ -1,19 +1,23 @@
+#include <iostream>
+
 /* original code in Python here: http://www.michurin.net/computer-science/artificial-intelligence/task-for-one-neuron.html */
 /* оригинальный код на Python'е здесь: http://www.michurin.net/computer-science/artificial-intelligence/task-for-one-neuron.html */
 
 
 /* the problem for which we find a solution based on the selected coefficients for the general equation of the line */
 /* проблема, для которой находим решение на основе подобранных коэффициентов для общего уравнения прямой */
-var problem = [
-	'...?.....?............#',
-	'......?.......?....####',
-	'.?........?.....#####?#',
-	'.......?.....#####?####',
-	'..?..?....#############',
-	'.......######?######?##',
-	'....#####?#######?#####',
-	'.###################?##'
-];
+const int width = 24;
+const int height = 8;
+char problem[height][width] = {
+    "...?.....?............#",
+    "......?.......?....####",
+    ".?........?.....#####?#",
+    ".......?.....#####?####",
+    "..?..?....#############",
+    ".......######?######?##",
+    "....#####?#######?#####",
+    ".###################?##"
+};
 
 /* coefficients of the general form of linear equation (Cartesian coordinates) */
 /* in original code in Python here an error, cause sum of x * wx + y * wy must be the same at the border line (or on a line parallel to it), so x need have less multiplier than y have */
@@ -21,40 +25,31 @@ var problem = [
 /* коэффициенты для общего уравнения прямой (прямоугольная система координат) */
 /* в оригинальном коде на Python'е здесь ошибка, потому что сумма x * wx + y * wy должна быть одинаковой на границе (или линии, параллельной ей), поэтому "x" нужен меньший множитель, чем у "y" */
 /* или, иными словами, т.к. "картинка" широкая, то при движении по оси "x" рост значения не должен быть быстрее, чем по "y", иначе крайняя точка по "x" (справа сверху) будет весить больше, чем крайняя точка по "y" */
-var wx = 8;
-var wy = 24;
+int wx = 8;
+int wy = 24;
 /* variable, that need to be equal to the sum of multiplications of coords point from border line to their weights (wx * x + wy * y), but with opposite sign */
 /* переменная, что должна быть равна сумме перемножений координат точки с разграничивающей прямой на их веса (wx * x + wy * y), но с противоположным знаком */
-var wb = -171;
-
-function neuron(x, y, bias=1) {
-    let f = wx * x + wy * y + wb * bias;  // general form of linear equation  // общее уравнение прямой
-    if (f < 0) {
-        return -1;
-	}
-    return 1;
-}
+int wb = -171;
 
 
-var y = 0;
-for (let line of problem) {
-    let x = 0;
-    let new_line = '';
-    for (let char_ of line) {
-        if (char_ == '?') {
-            /* ask neuron, what do it "think" about that point */
-            /* спрашиваем у нейрона, что он думает про эту точку */
-            let r = neuron(x, y);
-            if (r < 0) {
-                char_ = '!';
+void main() {
+	int bias = 1;  // «опорный сигнал»
+	for (int y = 0; y < height; ++y) {
+		char * new_line = new char[width]; new_line[width-1]=0;
+		for (int x = 0; problem[y][x] /*x < width*/; ++x) {
+			char ch = problem[y][x];
+			if (ch == '?') {
+				/* ask neuron, what do it "think" about that point */
+				/* спрашиваем у нейрона, что он думает про эту точку */
+				int f = wx * x + wy * y + wb * bias;  // general form of linear equation  // общее уравнение прямой
+				if (f < 0)
+					ch = '!';
+				else
+					ch = '%';
 			}
-            else {
-                char_ = '%';
-			}
+			new_line[x] = ch;
 		}
-        new_line += char_;
-        x += 1;
+		std::cout << new_line << '\n';
+		delete [] new_line;
 	}
-    console.log(new_line);
-    y += 1;
 }
