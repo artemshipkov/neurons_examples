@@ -20,9 +20,12 @@ public class Main {
 		/* coefficients of the general form of linear equation (Cartesian coordinates) */
 		/* in original code in Python here an error, cause sum of x * wx + y * wy must be the same at the border line (or on a line parallel to it), so x need have less multiplier than y have */
 		/* or, in other words, because the "image" is wide, then when moving along the "x" axis, the increase in value should not be faster than in "y," otherwise the edge point on "x" (top right) will weigh more than the edge point on "y" */
+		/* For a simple mechanical understanding what is happening can help tracing (outputing of values at each step of the internal cycle) */
+		
 		/* коэффициенты для общего уравнения прямой (прямоугольная система координат) */
 		/* в оригинальном коде на Python'е здесь ошибка, потому что сумма x * wx + y * wy должна быть одинаковой на границе (или линии, параллельной ей), поэтому "x" нужен меньший множитель, чем у "y" */
 		/* или, иными словами, т.к. "картинка" широкая, то при движении по оси "x" рост значения не должен быть быстрее, чем по "y", иначе крайняя точка по "x" (справа сверху) будет весить больше, чем крайняя точка по "y" */
+		/* Для просто механического понимания происходящего может помочь трассировка (вывод значений на каждом шаге внутреннего цикла) */
 		int wx = 8;
 		int wy = 24;
 		/* variable, that need to be equal to the sum of multiplications of coords point from border line to their weights (wx * x + wy * y), but with opposite sign */
@@ -32,7 +35,6 @@ public class Main {
 		int bias=1;  // «опорный сигнал»
 		int y = 0;
 		for (String line : problem) {
-			int x = 0;
 			String new_line = "";
 			for (int x=0; x<line.length(); ++x) {
 				char ch = line.charAt(x);

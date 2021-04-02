@@ -34,8 +34,8 @@ function learn($x, $y, $desired) {
 }
 
 function one_step_of_learning() {
-	global $problem, $height, $width;
-	for ($y = 0; $y < $height; ++$y)
+	global $problem, $height, $width;  // $height = count($problem);
+	for ($y = 0; $y < $height; ++$y)  // $width = strlen($problem[$y]);
         for ($x = 0; $x < $width; ++$x) {
 			$ch = $problem[$y][$x];
             if ($ch == '.')
@@ -46,9 +46,9 @@ function one_step_of_learning() {
 }
 
 function print_solution() {
-	global $problem, $height, $width;
+	global $problem, $height, $width;  // $height = count($problem);
     for ($y = 0; $y < $height; ++$y) {
-        $new_line = "";
+        $new_line = "";  // $width = strlen($problem[$y]);
         for ($x = 0; $x < $width; ++$x) {
 			$ch = $problem[$y][$x];
 			if ($ch === '?') {

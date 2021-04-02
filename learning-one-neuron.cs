@@ -12,9 +12,9 @@ namespace learning_one_neuron {
             "....#####?#######?#####",
             ".###################?##" };
 
-        static double wx = 0;
-		static double wy = 0;
-		static double wb = 0;
+        static double wx = 8;
+		static double wy = 24;
+		static double wb = -171;
 
 		static int neuron(int x, int y, int bias=1) {
 			double f = wx * x + wy * y + wb * bias;
@@ -49,10 +49,9 @@ namespace learning_one_neuron {
 		static void print_solution() {
 			int y = 0;
 			foreach (string line in problem) {
-				int x = 0;
 				string new_line = "";
-				foreach (char _ch in line) {
-                    char ch = _ch;
+                for (int x = 0; x < line.Length; ++x) {
+                    char ch = line[x];
                     if (ch == '?') {
 						int r = neuron(x, y);
 						if (r < 0)
@@ -61,7 +60,6 @@ namespace learning_one_neuron {
 							ch = '%';
 					}
 					new_line += ch;
-					++x;
 				}
 				Console.WriteLine(new_line);
 				++y;
