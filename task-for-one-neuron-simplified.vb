@@ -1,7 +1,10 @@
 Module Task_for_one_neuron_simplified
+    ' original code in Python here: http://www.michurin.net/computer-science/artificial-intelligence/task-for-one-neuron.html
+    ' оригинальный код на Python'е здесь: http://www.michurin.net/computer-science/artificial-intelligence/task-for-one-neuron.html
 
     Sub Main()
-
+    ' the problem for which we find a solution based on the selected coefficients for the general equation of the line
+    ' проблема, для которой находим решение на основе подобранных коэффициентов для общего уравнения прямой
         Dim problem As String() = {
                 "...?.....?............#",
                 "......?.......?....####",

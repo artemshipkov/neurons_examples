@@ -41,7 +41,7 @@ for ($y = 0; $y < $height; ++$y) {
 		$ch = $problem[$y][$x];
 		if ($ch === '?') {
 			/* ask neuron, what do it "think" about that point */
-            /* спрашиваем у нейрона, что он думает про эту точку */
+			/* спрашиваем у нейрона, что он думает про эту точку */
 			$f = $wx * $x + $wy * $y + $wb * $bias;  // general form of linear equation  // общее уравнение прямой
 			if ($f < 0)
 				$ch = '!';

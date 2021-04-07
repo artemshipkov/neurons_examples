@@ -1,5 +1,9 @@
 ﻿Module Task_for_one_neuron
+    ' original code in Python here: http://www.michurin.net/computer-science/artificial-intelligence/task-for-one-neuron.html
+    ' оригинальный код на Python'е здесь: http://www.michurin.net/computer-science/artificial-intelligence/task-for-one-neuron.html
 
+    ' the problem for which we find a solution based on the selected coefficients for the general equation of the line
+    ' проблема, для которой находим решение на основе подобранных коэффициентов для общего уравнения прямой
     Dim problem As String() = {
         "...?.....?............#",
         "......?.......?....####",
@@ -25,8 +29,6 @@
     Dim wb As Integer = -171
 
     Function neuron(x As Integer, y As Integer, Optional bias As Integer = 1) As Integer
-        ' ask neuron, what do it "think" about that point
-        ' спрашиваем у нейрона, что он думает про эту точку
         Dim f As Integer = wx * x + wy * y + wb * bias  ' general form of linear equation  ' общее уравнение прямой
         If (f < 0) Then
             Return -1

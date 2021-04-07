@@ -1,4 +1,4 @@
-#include <iostream>
+#include <stdio.h>
 
 /* original code in Python here: http://www.michurin.net/computer-science/artificial-intelligence/task-for-one-neuron.html */
 /* оригинальный код на Python'е здесь: http://www.michurin.net/computer-science/artificial-intelligence/task-for-one-neuron.html */
@@ -37,10 +37,10 @@ int wb = -171;
 
 void main() {
 	int bias = 1;  // «опорный сигнал»
+	char * new_line = new char[width]; new_line[width-1]=0;
 	for (int y = 0; y < height; ++y) {
-		char * new_line = new char[width]; new_line[width-1]=0;
-		for (int x = 0; problem[y][x] /*x < width*/; ++x) {
-			char ch = problem[y][x];
+		char ch;
+		for (int x = 0; ch = problem[y][x] /*x < width*/; ++x) {
 			if (ch == '?') {
 				/* ask neuron, what do it "think" about that point */
 				/* спрашиваем у нейрона, что он думает про эту точку */
@@ -52,7 +52,9 @@ void main() {
 			}
 			new_line[x] = ch;
 		}
-		std::cout << new_line << '\n';
-		delete [] new_line;
+		printf("%s\n", new_line);
 	}
+	delete [] new_line;
+	
+	return 0;
 }
