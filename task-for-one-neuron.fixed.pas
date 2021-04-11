@@ -18,6 +18,7 @@ const
    (* variable, that need to be equal to the sum of multiplications of coords point from border line to their weights (wx * x + wy * y), but with opposite sign *)
    (* переменная, что должна быть равна сумме перемножений координат точки с разграничивающей прямой на их веса (wx * x + wy * y), но с противоположным знаком *)
    wb : integer = -171;
+   (* bias : integer = 1;  { «опорный сигнал» } *)
    (* the problem for which we find a solution based on the selected coefficients for the general equation of the line *)
    (* проблема, для которой находим решение на основе подобранных коэффициентов для общего уравнения прямой *)
    problem : array [0..7, 0..23] of char = (
@@ -37,7 +38,20 @@ var
    y : integer;
    x : integer;
 
-   function neuron(x, y : integer; bias: integer = 1): integer;
+   function neuron(x, y : integer): integer; overload;  (* (x, y : integer; bias: integer = 1) *)
+   const
+      bias : integer = 1;  (* «опорный сигнал» *)
+   var
+      f : integer;
+   begin
+      f := wx * x + wy * y + wb * bias;  (* general form of linear equation  { общее уравнение прямой } *)
+      if (f < 0) then
+         neuron := -1
+      else
+         neuron := 1;
+   end;
+
+   function neuron(x, y, bias : integer): integer; overload;
    var
       f : integer;
    begin
@@ -58,7 +72,7 @@ begin
          begin
             (* ask neuron, what do it "think" about that point *)
             (* спрашиваем у нейрона, что он думает про эту точку *)
-            r := neuron(x, y);
+            r := neuron(x, y);  (* r := neuron(x, y, 1); *)  (* r := neuron(x, y, bias); *)
             if (r < 0) then
                char_ := '!'
             else

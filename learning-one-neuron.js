@@ -65,25 +65,6 @@ function print_solution() {
 	}
 }
 
-var y = 0;
-for (let line of problem) {
-    let x = 0;
-    let new_line = "";
-    for (let char_ of line) {
-        if (char_ == '?') {
-            let r = neuron(x, y);
-            if (r < 0)
-                char_ = '!';
-            else
-                char_ = '%';
-		}
-        new_line += char_;
-        x += 1;
-	}
-    console.log(new_line);
-    y += 1;
-}
-
 print_solution();
 for (let i = 0; i < 100; ++i) {
     one_step_of_learning();
